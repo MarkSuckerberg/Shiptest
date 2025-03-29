@@ -9,6 +9,7 @@
 	glass_name = "glass of tomato juice"
 	glass_desc = "Are you sure this is tomato juice?"
 	shot_glass_icon_state = "shotglassred"
+	category = "Virology"
 
 /datum/reagent/blood/expose_mob(mob/living/L, method=TOUCH, reac_volume)
 	if(data && data["viruses"])
@@ -342,6 +343,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	color = "#009CA8" // rgb: 0, 156, 168
 	taste_description = "cherry" // by popular demand
+	category = "Misc"
 	var/lube_kind = TURF_WET_LUBE ///What kind of slipperiness gets added to turfs.
 
 /datum/reagent/lube/expose_turf(turf/open/T, reac_volume)
@@ -362,6 +364,7 @@
 	color = "#FFC080" // rgb: 255, 196, 128  Bright orange
 	metabolization_rate = 10 * REAGENTS_METABOLISM // very fast, so it can be applied rapidly.  But this changes on an overdose
 	taste_description = "sour oranges"
+	category = "Misc"
 
 /datum/reagent/spraytan/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M))
@@ -764,6 +767,7 @@
 	description = "Sterilizes wounds in preparation for surgery."
 	color = "#D0EFEE" // space cleaner but lighter
 	taste_description = "bitterness"
+	category = "Medicine"
 
 /datum/reagent/space_cleaner/sterilizine/expose_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
 	if(method in list(TOUCH, VAPOR, PATCH, SMOKE))
@@ -952,6 +956,7 @@
 	color = "#A5F0EE" // rgb: 165, 240, 238
 	taste_description = "sourness"
 	reagent_weight = 0.6 //so it sprays further
+	category = "Misc"
 	var/clean_types = CLEAN_WASH
 
 /datum/reagent/space_cleaner/expose_obj(obj/O, reac_volume)
@@ -996,6 +1001,7 @@
 	color = "#ADB5DB" //i hate default violets and 'crypto' keeps making me think of cryo so it's light blue now
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "sourness"
+	category = "Toxin"
 
 /datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/M)
 	M.Dizzy(1)
@@ -1009,6 +1015,7 @@
 	description = "Impedrezene is a narcotic that impedes one's ability by slowing down the higher brain cell functions."
 	color = "#E07DDD" // pink = happy = dumb
 	taste_description = "numbness"
+	category = "Toxin"
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
 	M.adjust_jitter(5)
@@ -1067,6 +1074,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	color = "#9E6B38" // rgb: 158, 107, 56
 	taste_description = "metal"
+	category = "Pyrotechnics"
 
 /datum/reagent/foaming_agent// Metal foaming agent. This is lithium hydride. Add other recipes (e.g. LiH + H2O -> LiOH + H2) eventually.
 	name = "Foaming agent"
@@ -1074,6 +1082,7 @@
 	reagent_state = SOLID
 	color = "#664B63" // rgb: 102, 75, 99
 	taste_description = "metal"
+	category = "Engineering"
 
 /datum/reagent/smart_foaming_agent //Smart foaming agent. Functions similarly to metal foam, but conforms to walls.
 	name = "Smart foaming agent"
@@ -1081,6 +1090,7 @@
 	reagent_state = SOLID
 	color = "#664B63" // rgb: 102, 75, 99
 	taste_description = "metal"
+	category = "Engineering"
 
 /datum/reagent/ammonia
 	name = "Ammonia"
@@ -1541,6 +1551,7 @@
 	color = "#771100"
 	taste_description = "carpet" // Your tounge feels furry.
 	var/carpet_type = /turf/open/floor/carpet
+	category = "Engineering"
 
 /datum/reagent/carpet/expose_turf(turf/T, reac_volume)
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
@@ -1731,6 +1742,7 @@
 	var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
 	color = "#C8A5DC"
 	taste_description = "rainbows"
+	category = "Misc"
 	var/can_colour_mobs = TRUE
 
 /datum/reagent/colorful_reagent/New()
@@ -1778,6 +1790,7 @@
 	reagent_state = LIQUID
 	color = "#A86B45" //hair is brown
 	taste_description = "sourness"
+	category = "Misc"
 
 /datum/reagent/barbers_aid/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if((method == TOUCH || method == SMOKE)  || method == VAPOR)
@@ -1796,6 +1809,7 @@
 	reagent_state = LIQUID
 	color = "#7A4E33" //hair is dark browmn
 	taste_description = "sourness"
+	category = "Misc"
 
 /datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if((method == TOUCH || method == SMOKE)  || method == VAPOR)
@@ -1812,6 +1826,7 @@
 	reagent_state = LIQUID
 	color = "#ecb2cf"
 	taste_description = "bitterness"
+	category = "Misc"
 
 /datum/reagent/baldium/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if((method == TOUCH || method == SMOKE)  || method == VAPOR)
@@ -1828,6 +1843,7 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "cool salt"
+	category = "Misc"
 
 /datum/reagent/saltpetre/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
@@ -1851,6 +1867,7 @@
 	reagent_state = LIQUID
 	color = "#A70FFF"
 	taste_description = "dryness"
+	category = "Misc"
 
 /datum/reagent/drying_agent/expose_turf(turf/open/T, reac_volume)
 	if(istype(T))
@@ -1859,51 +1876,55 @@
 // Virology virus food chems.
 
 /datum/reagent/toxin/mutagen/mutagenvirusfood
-	name = "mutagenic agar"
+	name = "Mutagenic Agar"
 	color = "#A3C00F" // rgb: 163,192,15
 	taste_description = "sourness"
+	category = "Virology"
 
 /datum/reagent/toxin/mutagen/mutagenvirusfood/sugar
-	name = "sucrose agar"
+	name = "Sucrose Agar"
 	color = "#41B0C0" // rgb: 65,176,192
 	taste_description = "sweetness"
 
 /datum/reagent/medicine/synaptizine/synaptizinevirusfood
-	name = "virus rations"
+	name = "Virus Rations"
 	color = "#D18AA5" // rgb: 209,138,165
 	taste_description = "bitterness"
+	category = "Virology"
 
 /datum/reagent/toxin/plasma/plasmavirusfood
-	name = "virus plasma"
+	name = "Virus Plasma"
 	color = "#A270A8" // rgb: 166,157,169
 	taste_description = "bitterness"
 	taste_mult = 1.5
+	category = "Virology"
 
 /datum/reagent/toxin/plasma/plasmavirusfood/weak
-	name = "weakened virus plasma"
+	name = "Weakened Virus Plasma"
 	color = "#A28CA5" // rgb: 206,195,198
 	taste_description = "bitterness"
 	taste_mult = 1.5
 
 /datum/reagent/uranium/uraniumvirusfood
-	name = "decaying uranium gel"
+	name = "Decaying Uranium Gel"
 	color = "#67ADBA" // rgb: 103,173,186
 	taste_description = "the inside of a reactor"
+	category = "Virology"
 
 /datum/reagent/uranium/uraniumvirusfood/unstable
-	name = "unstable uranium gel"
+	name = "Unstable Uranium Gel"
 	color = "#2FF2CB" // rgb: 47,242,203
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/uraniumvirusfood/stable
-	name = "stable uranium gel"
+	name = "Stable Uranium Gel"
 	color = "#04506C" // rgb: 4,80,108
 	taste_description = "the inside of a reactor"
 
 // Bee chemicals
 
 /datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
+	name = "Royal Bee Jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
 	taste_description = "strange honey"
@@ -1947,6 +1968,7 @@
 	color = "#ff0000"//strong red. rgb 255, 0, 0
 	var/current_size = RESIZE_DEFAULT_SIZE
 	taste_description = "bitterness"
+	category = "Misc"
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size
@@ -1974,6 +1996,7 @@
 	color = "#FFFFFF" //pure white
 	taste_description = "plastic"
 	reagent_state = SOLID
+	category = "Misc"
 	var/glitter_type = /obj/effect/decal/cleanable/glitter
 
 /datum/reagent/glitter/expose_turf(turf/T, reac_volume)
@@ -2004,6 +2027,7 @@
 	color = "#AAAAAA55"
 	taste_description = "water"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	category = "Toxin"
 
 /datum/reagent/pax/on_mob_metabolize(mob/living/L)
 	..()
@@ -2093,6 +2117,7 @@
 	taste_mult = 4
 	can_synth = FALSE
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	category = "Toxin"
 	var/yuck_cycle = 0 //! The `current_cycle` when puking starts.
 
 /datum/reagent/yuck/on_mob_add(mob/living/L)
@@ -2141,6 +2166,7 @@
 	color = "#9C5A19"
 	taste_description = "bananas"
 	can_synth = TRUE
+	category = "Misc"
 
 /datum/reagent/wittel
 	name = "Wittel"
@@ -2154,6 +2180,7 @@
 	description = "A purple metal morphic liquid, said to impose it's metallic properties on whatever it touches."
 	color = "#b000aa"
 	taste_mult = 0 // oderless and tasteless
+	category = "Misc"
 	var/applied_material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
 	var/minumum_material_amount = 100
 
@@ -2412,6 +2439,7 @@
 	taste_description = "chalky concrete"
 	harmful = TRUE
 	reagent_state = SOLID
+	category = "Engineering"
 
 /datum/reagent/cement
 	name = "Cement"
@@ -2422,6 +2450,7 @@
 	var/potency = 2
 	var/concrete_type = /datum/reagent/concrete
 	var/units_per_aggregate = 5
+	category = "Engineering"
 
 // make changes to dip_object -- remove H?
 /datum/reagent/cement/dip_object(obj/item/I, mob/user, obj/item/reagent_containers/H)
@@ -2480,6 +2509,7 @@
 	var/units_per_floor = 2
 	var/turf/closed/wall/concrete/wall_type = /turf/closed/wall/concrete
 	var/turf/open/floor/concrete/floor_type = /turf/open/floor/concrete
+	category = "Engineering"
 
 /datum/reagent/concrete/expose_obj(obj/O, volume)
 	var/girder_type = initial(wall_type.girder_type)

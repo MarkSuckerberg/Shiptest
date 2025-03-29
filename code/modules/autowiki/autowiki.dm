@@ -30,7 +30,7 @@
 					"title" = "[autowiki.page]/[title]",
 					"text" = output[title],
 				)) + "\n"
-				root += "\n\n" + autowiki.include_template("[autowiki.page]/[title]")
+				root += "\n== [title] ==\n" + autowiki.include_template("[autowiki.page]/[title]")
 
 			//Run the next conditional
 			output = root
