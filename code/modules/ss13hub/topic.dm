@@ -20,6 +20,9 @@
 #endif
 		return json_encode(response)
 
+	if(parameters[SS13LIB_INFO_CODE])
+		return json_encode(build_static_info())
+
 	if(!parameters[SS13LIB_QUERY_CODE])
 		return FALSE
 

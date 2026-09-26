@@ -5,7 +5,13 @@
 /datum/ss13lib/proc/handle_client(client/new_client, connection_params)
 	SS13LIB_INFO_LOG("handle_client: [new_client.key] from [new_client.address]")
 	var/params_list = params2list(connection_params)
-	var/auth_ticket = params_list["auth_ticket"]
+
+	var/auth_ticket = params_list[SS13LIB_AUTH_TICKET_CODE]
+
+	if(auth_ticket && !auth_method_enabled("hub"))
+		SS13LIB_INFO_LOG("Rejecting [new_client.key]: Hub authentication is disabled.")
+		del(new_client)
+		return TRUE
 
 	var/launcher_port = params_list["launcher_port"]
 	var/launcher_key = params_list["launcher_key"]
@@ -20,7 +26,7 @@
 
 			SS13LIB_INFO_LOG("Auth succeeded for [new_client.key], resolved key: [resolved_key]")
 
-			var/is_banned = world.IsBanned(resolved_key, new_client.address, new_client.computer_id)
+			var/is_banned = world.IsBanned(resolved_key, new_client.address, new_client.computer_id, new_client.connection)
 			if(is_banned)
 				SS13LIB_INFO_LOG("Authenticated user [resolved_key] is banned, disconnecting.")
 				del(new_client)
@@ -36,10 +42,15 @@
 
 		SS13LIB_WARNING_LOG("Failed to authenticate [new_client.key] via SS13Hub.")
 
+		if(!auth_method_enabled("byond"))
+			SS13LIB_WARNING_LOG("Rejecting [new_client.key]: Hub authentication failed and BYOND authentication is disabled.")
+			del(new_client)
+			return TRUE
+
 		var/key_to_skip = new_client.key
 		isbanned_hook_ignore |= key_to_skip
 
-		if(world.IsBanned(new_client.key, new_client.address, new_client.computer_id))
+		if(world.IsBanned(new_client.key, new_client.address, new_client.computer_id, new_client.connection))
 			SS13LIB_INFO_LOG("Unauthenticated user [new_client.key] is banned, disconnecting.")
 			del(new_client)
 			return TRUE
@@ -52,16 +63,27 @@
 
 		new_client.mob = new /mob/ss13lib_holder_mob(null)
 		return new_client.mob
+	if(!auth_method_enabled("byond"))
+		SS13LIB_INFO_LOG("Rejecting [new_client.key]: BYOND authentication is disabled.")
+		del(new_client)
+		return TRUE
 
 	var/key_to_skip = new_client.key
 	isbanned_hook_ignore |= key_to_skip
 
-	if(world.IsBanned(new_client.key, new_client.address, new_client.computer_id))
+	if(world.IsBanned(new_client.key, new_client.address, new_client.computer_id, new_client.connection))
 		del(new_client)
 		return TRUE
 
 	SS13LIB_INFO_LOG("No auth ticket for [new_client.key], proceeding as BYOND-authenticated user.")
 	return FALSE
+
+/datum/ss13lib/proc/auth_method_enabled(method)
+#ifdef SS13LIB_AUTH_METHODS
+	return method in SS13LIB_AUTH_METHODS
+#else
+	return TRUE
+#endif
 
 /datum/ss13lib/proc/check_auth_ticket(auth_ticket, client_ip) as /datum/ss13lib_auth_response
 	if(!src.server_id)
@@ -105,12 +127,15 @@
 	SS13LIB_INFO_LOG("Auth ticket validated, username: [decoded["username"]]")
 
 	var/datum/ss13lib_auth_response/auth = new
+	auth.user_id = decoded["user_id"]
 	auth.key = decoded["key"]
 	auth.username = decoded["username"]
 	auth.created_at = decoded["created_at"]
 	auth.hwid = decoded["hwid"]
+	auth.hwid_uniqueness = decoded["hwid_uniqueness"]
 	auth.discord_id = decoded["discord_id"]
 	auth.steam_id = decoded["steam_id"]
+	auth.steam_limited = decoded["steam_limited"]
 
 	return auth
 
