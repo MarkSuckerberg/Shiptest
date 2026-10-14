@@ -256,6 +256,9 @@ WEBURL https://shiptest.net
 ## Wiki address
 # WIKIURL https://shiptest.net/wiki/
 
+## Forum URL
+# FORUMURL https://forums.shiptest.net/
+
 ## Rules address
 # RULESURL https://shiptest.net/wiki/Rules
 
