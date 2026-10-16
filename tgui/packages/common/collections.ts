@@ -156,22 +156,27 @@ export const range = (start: number, end: number): number[] =>
 /**
  * A fast implementation of reduce.
  */
-export const reduce = (reducerFn, initialValue) => (array) => {
-  const length = array.length;
-  let i;
-  let result;
-  if (initialValue === undefined) {
-    i = 1;
-    result = array[0];
-  } else {
-    i = 0;
-    result = initialValue;
-  }
-  for (; i < length; i++) {
-    result = reducerFn(result, array[i], i, array);
-  }
-  return result;
-};
+export const reduce =
+  <T, U = T>(
+    reducerFn: (prev: U, current: T, index: number, array: T[]) => U,
+    initialValue?: U
+  ) =>
+  (array: T[]) => {
+    const length = array.length;
+    let i: number;
+    let result: U;
+    if (initialValue === undefined) {
+      i = 1;
+      result = array[0];
+    } else {
+      i = 0;
+      result = initialValue;
+    }
+    for (; i < length; i++) {
+      result = reducerFn(result, array[i], i, array);
+    }
+    return result;
+  };
 
 /**
  * Creates a duplicate-free version of an array, using SameValueZero for

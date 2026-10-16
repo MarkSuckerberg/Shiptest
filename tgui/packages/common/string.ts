@@ -7,7 +7,7 @@
 /**
  * Removes excess whitespace and indentation from the string.
  */
-export const multiline = (str) => {
+export const multiline = (str: string | string[]) => {
   if (Array.isArray(str)) {
     // Small stub to allow usage as a template tag
     return multiline(str.join(''));
@@ -32,7 +32,7 @@ export const multiline = (str) => {
   // Remove this base indentation and trim the resulting string
   // from both ends.
   return lines
-    .map((line) => line.substr(minIndent).trimRight())
+    .map((line) => line.slice(minIndent).trimRight())
     .join('\n')
     .trim();
 };
@@ -44,13 +44,14 @@ export const multiline = (str) => {
  *
  * Example: createGlobPattern('*@domain')('user@domain') === true
  */
-export const createGlobPattern = (pattern) => {
-  const escapeString = (str) => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+export const createGlobPattern = (pattern: string) => {
+  const escapeString = (str: string) =>
+    str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
   // prettier-ignore
   const regex = new RegExp('^'
     + pattern.split(/\*+/).map(escapeString).join('.*')
     + '$');
-  return (str) => regex.test(str);
+  return (str: string) => regex.test(str);
 };
 
 /**
@@ -63,13 +64,16 @@ export const createGlobPattern = (pattern) => {
  * @param {(obj: T) => string} stringifier
  * @returns {(obj: T) => boolean}
  */
-export const createSearch = (searchText, stringifier) => {
+export const createSearch = <T>(
+  searchText: string,
+  stringifier?: (obj: T) => string
+): ((obj: T) => boolean) => {
   const preparedSearchText = searchText.toLowerCase().trim();
   return (obj) => {
     if (!preparedSearchText) {
       return true;
     }
-    const str = stringifier ? stringifier(obj) : obj;
+    const str = stringifier ? stringifier(obj) : (obj as string);
     if (!str) {
       return false;
     }
@@ -84,7 +88,7 @@ export const createSearch = (searchText, stringifier) => {
  *
  * @example capitalize('heLLo') === 'Hello'
  */
-export const capitalize = (str) => {
+export const capitalize = (str: string | string[]) => {
   // Handle array
   if (Array.isArray(str)) {
     return str.map(capitalize);
@@ -102,7 +106,7 @@ export const capitalize = (str) => {
  *
  * @example capitalizeAll('heLLo woRLd') === 'HeLLo WoRLd'
  */
-export const capitalizeAll = (str) => {
+export const capitalizeAll = (str: string): string => {
   return str.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
 };
 
@@ -114,11 +118,11 @@ export const capitalizeAll = (str) => {
  *
  * @example capitalizeFirst('heLLo woRLd') === 'HeLLo woRLd'
  */
-export const capitalizeFirst = (str) => {
+export const capitalizeFirst = (str: string): string => {
   return str.replace(/^\w/, (letter) => letter.toUpperCase());
 };
 
-export const toTitleCase = (str) => {
+export const toTitleCase = (str: string | string[]) => {
   // Handle array
   if (Array.isArray(str)) {
     return str.map(toTitleCase);
@@ -154,7 +158,7 @@ export const toTitleCase = (str) => {
  * @param  {String} str Encoded HTML string
  * @return {String} Decoded HTML string
  */
-export const decodeHtmlEntities = (str) => {
+export const decodeHtmlEntities = (str: string): string => {
   if (!str) {
     return str;
   }
@@ -190,7 +194,7 @@ export const decodeHtmlEntities = (str) => {
  * Converts an object into a query string,
  */
 // prettier-ignore
-export const buildQueryString = obj => Object.keys(obj)
+export const buildQueryString = (obj: Record<string, string|number|boolean>) => Object.keys(obj)
   .map(key => encodeURIComponent(key)
     + '=' + encodeURIComponent(obj[key]))
   .join('&');

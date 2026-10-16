@@ -4,7 +4,11 @@
  * @license MIT
  */
 
+import { Fn } from "./types";
+
 export class EventEmitter {
+  private listeners: Record<string, Fn[]>;
+
   constructor() {
     this.listeners = {};
   }
