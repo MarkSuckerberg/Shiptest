@@ -7,9 +7,9 @@ import { getDisplayColor } from './helpers';
 import { Antagonist, Observable, OrbitData } from './types';
 
 type Props = {
-  item: Observable | Antagonist;
-  autoObserve: boolean;
-  color: string | undefined;
+  readonly item: Observable | Antagonist;
+  readonly autoObserve: boolean;
+  readonly color: string | undefined;
 };
 
 export const OrbitItem = (props: Props, context) => {

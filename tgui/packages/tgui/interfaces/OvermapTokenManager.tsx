@@ -55,7 +55,7 @@ const tokenTypeToName = (type: DatumType) => {
   }
 };
 
-const VvButton = (props: { target_ref: string }, context: any) => {
+const VvButton = (props: { readonly target_ref: string }, context: any) => {
   const { target_ref } = props;
   const { act } = useBackend(context);
   return (
@@ -68,7 +68,7 @@ const VvButton = (props: { target_ref: string }, context: any) => {
 };
 
 const JumpButton = (
-  props: { target_ref: string; tooltip_override?: string },
+  props: { readonly target_ref: string; readonly tooltip_override?: string },
   context: any
 ) => {
   const { target_ref } = props;
@@ -82,7 +82,7 @@ const JumpButton = (
   );
 };
 
-const TokenInfo = (props: { datum: OvermapDatumData }, context: any) => {
+const TokenInfo = (props: { readonly datum: OvermapDatumData }, context: any) => {
   const { act } = useBackend(context);
   const { datum } = props;
   return (

@@ -2,7 +2,7 @@ import { LabeledList, NoticeBox } from '../../components';
 import { Antagonist, Observable } from './types';
 
 type Props = {
-  item: Observable | Antagonist;
+  readonly item: Observable | Antagonist;
 };
 
 /** Displays some info on the mob as a tooltip. */

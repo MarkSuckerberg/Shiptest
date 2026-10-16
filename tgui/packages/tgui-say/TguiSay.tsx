@@ -342,7 +342,7 @@ export class TguiSay extends Component<{}, State> {
   }
 }
 
-const Dragzone = ({ theme, position }: { theme: string; position: string }) => {
+const Dragzone = ({ theme, position }: { readonly theme: string; readonly position: string }) => {
   // Horizontal or vertical?
   const location =
     position === 'left' || position === 'right' ? 'vertical' : 'horizontal';

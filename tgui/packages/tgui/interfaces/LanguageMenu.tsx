@@ -33,7 +33,7 @@ type Data = {
 };
 
 type LanguageProps = {
-  language: Language;
+  readonly language: Language;
 };
 
 type LanguagePropsPassRest = LanguageProps & {

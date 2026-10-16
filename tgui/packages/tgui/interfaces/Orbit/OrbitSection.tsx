@@ -5,11 +5,11 @@ import { OrbitTooltip } from './OrbitTooltip';
 import { Observable } from './types';
 
 type Props = {
-  color?: string;
-  section: Observable[];
-  title: string;
-  searchQuery: string;
-  autoObserve: boolean;
+  readonly color?: string;
+  readonly section: Observable[];
+  readonly title: string;
+  readonly searchQuery: string;
+  readonly autoObserve: boolean;
 };
 
 /**

@@ -8,7 +8,7 @@ type InputButtonsData = {
 };
 
 type InputButtonsProps = {
-  input: string | number | string[] | [string, number][];
+  readonly input: string | number | string[] | [string, number][];
 } & Partial<{
   on_submit: () => void;
   on_cancel: () => void;

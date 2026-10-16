@@ -1,13 +1,13 @@
-pygit2==1.7.2
-bidict==0.22.0
-Pillow==10.0.1
+pygit2==1.20.1
+bidict==0.24.1
+Pillow==10.4.0
 
 # check_regex.py
-colorama==0.4.4
-PyYaml==6.0
-gitpython==3.1.41
-unidiff==0.7.0
+colorama==0.4.6
+PyYaml==6.0.3
+gitpython==3.1.61
+unidiff==0.7.5
 
 # changelogs
-PyYaml==6.0
+PyYaml==6.0.3
 beautifulsoup4==4.9.3

@@ -76,7 +76,7 @@ type PaperSheetStamperState = {
 };
 
 type PaperSheetStamperProps = {
-  scrollableRef: RefObject<HTMLDivElement>;
+  readonly scrollableRef: RefObject<HTMLDivElement>;
 };
 
 type FieldCreationReturn = {
@@ -98,9 +98,9 @@ enum InteractionType {
 }
 
 type PreviewViewProps = {
-  scrollableRef: RefObject<HTMLDivElement>;
-  handleOnScroll: (this: GlobalEventHandlers, ev: Event) => any;
-  textArea: string;
+  readonly scrollableRef: RefObject<HTMLDivElement>;
+  readonly handleOnScroll: (this: GlobalEventHandlers, ev: Event) => any;
+  readonly textArea: string;
 };
 
 const canEdit = (heldItemDetails?: WritingImplement): boolean => {
